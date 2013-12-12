@@ -2,7 +2,9 @@
 #
 # This class deploys the IBM License Metric Tool.
 #
-# As a prerequisite for using this class, you must download the binary RPM package from IBM's support site and placing this package somewhere within your puppetmaster's fileserver.
+# As a prerequisite for using this class, you must download the binary RPM
+# package from IBM's support site and placing this package somewhere within
+# your puppetmaster's fileserver.
 #
 # === Parameters
 #
