@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe 'ilmt', :type => :class do
-  describe 'ILMT installation class' do
+  describe 'without package param' do
     let(:params) { { } }
 
     it {
-      should contain_file('response_file')
+      expect {
+        should contain_file('response_file')
+      }.to raise_error(Puppet::Error)
     }
   end
 end
