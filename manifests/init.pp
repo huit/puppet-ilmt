@@ -115,8 +115,8 @@ class ilmt (
     default  => 'present',
   }
   file { 'response_file':
-    ensure => $ensure_response_file,
-    path => '/etc/response_file.txt',
+    ensure  => $ensure_response_file,
+    path    => '/etc/response_file.txt',
     content => template('ilmt/response_file.txt.erb'),
   }
 
