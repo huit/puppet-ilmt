@@ -1,0 +1,276 @@
+###############################################################################
+# Licensed Materials - Property of IBM
+# 5724-T40 IBM License Metric Tool
+# 5725-C68 IBM Tivoli Asset Discovery for Distributed
+# (C) Copyright IBM Corp. 2005, 2012.
+# All Rights Reserved. US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+###############################################################################
+
+################################################################################
+# For a full description of each setting for IBM License Metric Tool or
+# IBM Tivoli Asset Discovery for Distributed see one of the following manuals:
+# Installing IBM License Metric Tool 7.5.0.115
+# Installing IBM Tivoli Asset Discovery for Distributed 7.5.0.115
+# 
+# If you have a non-English version of the product, these manuals may be
+# available in the language of your version; see the product documentation DVD
+# or the product Information Center for details:
+# IBM License Metric Tool:
+#     http://publib.boulder.ibm.com/infocenter/tivihelp/v53r1/topic/com.ibm.license.mgmt.planinconf.doc/r_plan_main.html
+# IBM Tivoli Asset Discovery for Distributed:
+#     http://publib.boulder.ibm.com/infocenter/tivihelp/v54r1/topic/com.ibm.license.mgmt.planinconf.doc/r_plan_main.html
+################################################################################
+
+################################################################################
+#(Linux/UNIX only)
+# This file is a template response file. 
+# If you want to install the agent with the response file, perform the following steps:
+#		
+#	1.	Update the parameters in the file.		
+#
+#	2. 	
+#		a) Set the LMT_RESPONSE_FILE_PATH environment variable to point to the location of the response file. 
+#			This method cannot be used on HP-UX, AIX and Solaris.
+#		b) You can also place this file in your /etc directory.
+#			If the environment variable has not been set, the installer automatically checks the /etc directory 
+#			for the response file. If the file cannot be located, the agent is installed with the default parameters.
+#
+#	3.  To install the agent, enter the following command:
+#
+#		- AIX:
+#			installp -acgXd ILMT-TAD4D-agent-7.5.0.115-aix-ppc ILMT-TAD4D-agent			
+#			or
+#			installp -R <custom_location> -acgXd ILMT-TAD4D-agent-7.5.0.115-aix-ppc ILMT-TAD4D-agent
+
+#		- AIX WPAR:
+#			installp -acgX -Or ILMT-TAD4D-agent
+#
+#		- Linux:
+#			rpm -Uhv ILMT-TAD4D-agent-7.5.0.115-linux-<platform>.rpm
+#
+#		- HP-UX:
+#			swinstall -s <ABSOLUTE_PATH_TO_INSTALLER_FILE>/ILMT-TAD4D-agent-7.5.0.115-hpux ILMT-TAD4D-agent:/<INSTALL_PATH>
+#
+#		- Solaris:
+#			pkgadd -d ILMT-TAD4D-agent-7.5.0.115-solaris-<platform> ILMT-TAD4D-agent	
+#
+# (Linux only)
+# To install the agent in a different location than the default, enter the following command:
+#  rpm -Uvh ILMT-TAD4D-agent-7.5.0.115-linux-<platform>.rpm --prefix <custom_location>
+#
+# (AIX only)
+# If you are using AIX version 5.3.0.61 or higher, you can change the agent installation
+# directory by using the relocation mechanism.  The mechanism is based on the User
+# Specified Installation Location (USIL).  To install the agent in your selected directory:
+#   a.  Create the custom_location directory:
+#         mkdir -p /<custom_location>
+#   b.  Make the directory your User Specified Location (USIL):
+#         mkusil -R /<custom_location>
+#   c.  Install the agent in this location:
+#         installp -R /<custom_location> -acgXd <ABSOLUTE_PATH_TO_INSTALLER_DIR> ILMT-TAD4D-agent-7.5.0.115-aix-ppc ILMT-TAD4D-agent
+#
+#		
+################################################################################
+
+################################################################################
+#
+# Agent configuration: Port
+#
+# Type the port number used by the agent.
+# This value is used if SecurityLevel=0
+#
+Port=<%= @port %>
+
+################################################################################
+#
+# Agent configuration: Port
+#
+# Type the port number used by the agent.
+# This value is used if SecurityLevel=1
+#
+SecureAuth=<%= @secureauth %>
+
+################################################################################
+#
+# Agent configuration: Port
+#
+# Type the port number used by the agent.
+# This value is used if SecurityLevel=2
+#
+SecureAll=<%= @secureall %>
+
+################################################################################
+#
+# Agent configuration: Agent Temporary Path
+#
+# Specify the Agent Temporary Directory (a working directory used for example for file
+# download). The default location is /tmp/itlm 
+# Example (Windows)
+#     AgentTempPath=C:\WINDOWS\TEMP\itlm
+# Example (UNIX)
+#     AgentTempPath=/tmp/itlm
+AgentTempPath=<%= @agenttemppath %>
+
+
+################################################################################
+#
+# Agent configuration: Message Handler Address
+#
+# Specify the hostname or IP address of the message handler server.
+#
+MessageHandlerAddress=<%= @messagehandleraddress %>
+
+################################################################################
+#
+# Agent configuration: Scan Group Name
+#
+# Specify the name of the scan group.
+#
+# This is a recommendation and is only used for the initial registration with
+# the server. The server may ignore the recommendation and reassign the agent
+# into a default scan group that has been designated by the inventory
+# administrator on the server. The inventory administrator may also reassign
+# the agent to another scan group at anytime. This value may not reflect the
+# current scan group that the agent is actually assigned to if it has
+# been reassigned on the server.
+#
+ScanGroup=<%= @scangroupname %>
+
+################################################################################
+#
+# Agent configuration: Security level
+#
+# Select the security level for the agent. 
+# Possible values are:
+# 
+#   0  - Indicates that the agent communication will not be secure (HTTP)
+#   1  - Indicates that the agent communication will be secure with server authentication only 
+#          (using SSL with only Server Authentication feature)
+#   2  - Indicates that the agent communication will be secure with both Agent and Server Authentication 
+#          (using SSL with both Client and Server Authentication feature)
+#
+SecurityLevel=<%= @securitylevel %>
+
+################################################################################
+#
+# Agent configuration: Use Proxy
+#
+# If the agent is not protected by a proxy server, set this value to "n",
+# otherwise set it to "y".
+#
+# Possible values are:
+# 
+#     y  - Indicates that the agent is protected by a proxy server
+#     n  - Indicates that the agent is not protected by a proxy server
+# 
+UseProxy=<%= @useproxy %>
+
+################################################################################
+#
+# Agent configuration: Proxy Port
+#
+# Specify the port number used by the proxy server.
+# This Value is ignored if UseProxy = n.
+#
+ProxyPort=<%= @proxyport %>
+
+###############################################################################
+#
+# Agent configuration: Proxy Address
+#
+# Specify the address of the proxy server.
+# This Value is ignored if UseProxy = n.
+#
+ProxyAddress=<%= @proxyaddress %>
+
+################################################################################
+#
+# Agent configuration: FIPS Enabled.
+#
+# Set this value to "y" if the agent is to use FIPS. 
+# 
+# Permitted values are:
+# 
+#     y  - Indicates that the agent is using FIPS 
+#     n  - Indicates that the agent is not using FIPS
+# 
+FipsEnabled=<%= @fipsenabled %>
+
+################################################################################
+#
+# Agent configuration: Common Inventory Technology Destination Path
+#
+# Specify the Common Inventory Technology installation folder. Leave this field blank in order
+# to use the default value.
+#
+CITInstallPath=<%= @citinstallpath %>
+
+################################################################################
+#
+# Install server certificate:
+#
+# If you have selected secure communications (SecurityLevel>0), you can choose to install server certificate. 
+#
+# Possible values are:
+# 
+#     y, n.
+#
+# If you select the value "y", you must also specify if you use your own server 
+# certificate or server test certificate. 
+# (ServerCustomSSLCertificate).
+#
+# For example, to indicate that you want to install the certificate
+# use the following: 
+#   
+#    InstallServerCertificate=y
+#
+InstallServerCertificate=<%= @installservercertificate %>
+
+################################################################################
+#
+# SSL certificate: server certificate
+#
+# If you have selected to supply SSL certificate (InstallServerCertificate=y), you can choose to provide your own 
+# server certificate to be used by the agent for secure communications with the server.
+#
+# Possible values are:
+# 
+#     y  - Indicates that you want to provide your own server certificate.
+#     n  - Indicates that you want to use the server test certificate. 
+#
+# You should note that the test certificate may only be used for
+# test purposes as it is in the name of IBM and is insecure (the same 
+# certificate is distributed to all customers).
+#
+# If you select the value "y", you must also supply the certificate path name
+# (ServerCertFilePath).
+#
+# For example, to indicate that you want to use your own server certificate for SSL
+# communication, use the following: 
+#   
+#    ServerCustomSSLCertificate=y
+#
+ServerCustomSSLCertificate=<%= @servercustomsslcertificate %>
+
+################################################################################
+#
+# SSL certificate: server certificate path name
+#
+# If you have selected to supply your own server certificate (ServerCustomSSLCertificate=y), 
+# you must provide the path name of your own server certificate (including file name).
+# e.g. ServerCertFilePath=/tmp/certificates/cert.arm
+#
+# The name of the certificate must be "cert.arm".
+# If the path contains spaces, enclose the whole path in double-quotes. 
+#
+ServerCertFilePath=<%= @servercertfilepath %>
+
+################################################################################
+#
+# Agent configuration: Agent certificate file
+#
+# If you have selected security level maximum, 
+# you should provide agent personal certificate.
+#
+AgentCertFilePath=<%= @agentcertfilepath %>
