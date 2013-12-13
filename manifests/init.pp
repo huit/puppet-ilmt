@@ -172,4 +172,19 @@ class ilmt (
       source   => $package_file_path,
     }
   }
+
+  $ensure_ilmt_service = $ensure ? {
+    'absent'   => 'stopped',
+    'disabled' => 'stopped',
+    default    => 'running',
+  }
+  service { 'ilmt_service':
+    ensure     => $ensure_ilmt_service,
+    enable     => false,
+    name       => 'tlmagent',
+    hasrestart => false,
+    hasstatus  => false,
+    start      => '/var/itlm/tlmagent -g',
+    stop       => '/var/itlm/tlmagent -e'
+  }
 }
