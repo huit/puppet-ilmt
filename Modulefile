@@ -8,4 +8,4 @@ description 'Deploys the IBM License Metric Tool.  Currently supports RHEL.'
 project_page 'https://github.com/huit/puppet-ilmt'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/stdlib', '<4.0'
+dependency 'puppetlabs/stdlib', '~> 3.0'

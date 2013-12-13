@@ -6,3 +6,4 @@ spec/fixtures
 .rspec_system
 .bundle
 .*sw*
+huit-ilmt-*
