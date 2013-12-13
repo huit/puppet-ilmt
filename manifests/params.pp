@@ -9,6 +9,7 @@ class ilmt::params {
   $fipsenabled = 'n'
   $installservercertificate = 'n'
   $messagehandleraddress = 'localhost'
+  $package = false
   $port = 9988
   $proxyaddress = 'none'
   $proxyport = 3128

@@ -33,7 +33,6 @@
 # Copyright 2013 President and Fellows of Harvard University
 #
 class ilmt (
-  $package,
   $ensure = $ilmt::params::ensure,
   $agentcertfilepath = $ilmt::params::agentcertfilepath,
   $agenttemppath = $ilmt::params::agenttemppath,
@@ -41,7 +40,7 @@ class ilmt (
   $fipsenabled = $ilmt::params::fipsenabled,
   $installservercertificate = $ilmt::params::installservercertificate,
   $messagehandleraddress = $ilmt::params::messagehandleraddress,
-  $packagename = $ilmt::params::packagename,
+  $package = $ilmt::params::package,
   $port = $ilmt::params::port,
   $proxyaddress = $ilmt::params::proxyaddress,
   $proxyport = $ilmt::params::proxyport,
@@ -61,6 +60,10 @@ class ilmt (
   validate_re($securitylevel, '^(0|1|2)$', '$securitylevel must be "0", "1", or "2".')
   validate_absolute_path($agenttemppath)
 
+  if ( ! $package ) {
+    fail('$package parameter must be provided.')
+  }
+  validate_string($package)
   validate_string($port)
   validate_string($messagehandleraddress)
   validate_string($scangroup)
