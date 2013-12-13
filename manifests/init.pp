@@ -180,6 +180,8 @@ class ilmt (
   }
   service { 'ilmt_service':
     ensure     => $ensure_ilmt_service,
+    require    => Package['ilmt_package'],
+    subscribe  => Package['ilmt_package'],
     enable     => false,
     name       => 'tlmagent',
     hasrestart => false,
