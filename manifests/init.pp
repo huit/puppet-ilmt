@@ -60,10 +60,12 @@ class ilmt (
   validate_re($securitylevel, '^(0|1|2)$', '$securitylevel must be "0", "1", or "2".')
   validate_absolute_path($agenttemppath)
 
-  if ( ! $package ) {
-    fail('$package parameter must be provided.')
+  if ( $package ) {
+    validate_string($package)
   }
-  validate_string($package)
+  else {
+    notify { '$package parameter not provided, package management disabled.': }
+  }
   validate_string($port)
   validate_string($messagehandleraddress)
   validate_string($scangroup)
@@ -123,26 +125,28 @@ class ilmt (
     content => template('ilmt/response_file.txt.erb'),
   }
 
-  $ensure_package_file = $ensure ? {
-    'absent' => 'absent',
-    default  => 'present',
-  }
-  $package_file_path = "${tmpdir}/${package_filename}"
-  file { 'package_file':
-    ensure => $ensure_package_file,
-    path   => $package_file_path,
-    source => $package,
-  }
+  if ( $package ) {
+    $ensure_package_file = $ensure ? {
+      'absent' => 'absent',
+      default  => 'present',
+    }
+    $package_file_path = "${tmpdir}/${package_filename}"
+    file { 'package_file':
+      ensure => $ensure_package_file,
+      path   => $package_file_path,
+      source => $package,
+    }
 
-  $ensure_ilmt_package = $ensure ? {
-    'disabled' => 'present',
-    default    => $ensure,
-  }
-  package { 'ilmt_package':
-    ensure   => $ensure_ilmt_package,
-    name     => $packagename,
-    require  => File['package_file','response_file'],
-    provider => 'rpm',
-    source   => $package_file_path,
+    $ensure_ilmt_package = $ensure ? {
+      'disabled' => 'present',
+      default    => $ensure,
+    }
+    package { 'ilmt_package':
+      ensure   => $ensure_ilmt_package,
+      name     => $packagename,
+      require  => File['package_file','response_file'],
+      provider => 'rpm',
+      source   => $package_file_path,
+    }
   }
 }
