@@ -56,8 +56,16 @@ class ilmt (
 ) inherits ilmt::params {
 
   # parameter validation
-  validate_re($ensure, '^((present|absent|disabled)|\d+(\.\d+)?)$', '$ensure must be "present", "absent", "disabled", or a version string.')
-  validate_re($securitylevel, '^(0|1|2)$', '$securitylevel must be "0", "1", or "2".')
+  validate_re(
+    $ensure,
+    '^((present|absent|disabled)|\d+(\.\d+)?)$',
+    '$ensure must be "present", "absent", "disabled", or a version string.'
+  )
+  validate_re(
+    $securitylevel,
+    '^(0|1|2)$',
+    '$securitylevel must be "0", "1", or "2".'
+  )
   validate_absolute_path($agenttemppath)
 
   if ( $package ) {
@@ -85,11 +93,26 @@ class ilmt (
   if ( $securitylevel > 0 ) {
     validate_string($secureauth)
 
-    validate_re($installservercertificate, '^(y|n)$', '$installservercertificate must be "y" or "n".')
-    validate_re($servercustomsslcertificate, '^(y|n)$', '$servercustomsslcertificate must be "y" or "n".')
-    if ( str2bool($installservercertificate) and str2bool($servercustomsslcertificate) ) {
+    validate_re(
+      installservercertificate,
+      '^(y|n)$',
+      '$installservercertificate must be "y" or "n".'
+    )
+    validate_re(
+      servercustomsslcertificate,
+      '^(y|n)$',
+      '$servercustomsslcertificate must be "y" or "n".'
+    )
+    if (
+      str2bool($installservercertificate) and
+      str2bool($servercustomsslcertificate)
+    ) {
       validate_absolute_path($servercertfilepath)
-      validate_re($servercertfilepath, 'cert\.arm$', '$servercertfilepath must end in "cert.arm".')
+      validate_re(
+        $servercertfilepath,
+        'cert\.arm$',
+        '$servercertfilepath must end in "cert.arm".'
+      )
     }
 
     if ( $securitylevel > 1 ) {
