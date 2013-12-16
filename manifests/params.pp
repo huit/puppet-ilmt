@@ -3,6 +3,7 @@
 #
 class ilmt::params {
   $ensure = 'present'
+  $agentcert = false
   $agentcertfilepath = ''
   $agenttemppath = '/tmp/itlm'
   $citinstallpath = ''
@@ -17,6 +18,7 @@ class ilmt::params {
   $secureall = 9977
   $secureauth = 9999
   $securitylevel = 0
+  $servercert = false
   $servercertfilepath = ''
   $servercustomsslcertificate = 'n'
   $tmpdir = '/tmp'

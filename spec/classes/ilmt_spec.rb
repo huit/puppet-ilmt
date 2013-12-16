@@ -12,7 +12,7 @@ describe 'ilmt', :type => :class do
   describe 'on RedHat platform' do
     let(:facts) { { :osfamily => 'RedHat' } }
 
-    it { should contain_file('response_file').with ( {
+    it { should contain_file('response_file').with( {
       :ensure => 'present',
       :path   => '/etc/response_file.txt',
       :owner  => 'root',
@@ -20,7 +20,7 @@ describe 'ilmt', :type => :class do
       :mode   => '0600'
     } ) }
 
-    it { should contain_service('ilmt_service').with ( {
+    it { should contain_service('ilmt_service').with( {
       :ensure     => 'running',
       :enable     => false,
       :name       => 'tlmagent',
@@ -35,7 +35,7 @@ describe 'ilmt', :type => :class do
 
         it { should compile.with_all_deps }
 
-        it { should contain_file('package_file').with ( {
+        it { should contain_file('package_file').with( {
           :ensure => 'present',
           :path   => '/tmp/ILMT-TAD4D-agent-7.5.0.115-linux-x86.rpm',
           :source => 'puppet:///modules/ilmt/foo.rpm',
@@ -44,7 +44,7 @@ describe 'ilmt', :type => :class do
           :mode   => '0600'
         } ) }
 
-        it { should contain_package('ilmt_package').with ( {
+        it { should contain_package('ilmt_package').with( {
           :ensure   => 'present',
           :name     => 'ILMT-TAD4D-agent',
           :source   => '/tmp/ILMT-TAD4D-agent-7.5.0.115-linux-x86.rpm',
@@ -57,7 +57,7 @@ describe 'ilmt', :type => :class do
 
         it { should compile.with_all_deps }
 
-        it { should contain_package('ilmt_package').with ( {
+        it { should contain_package('ilmt_package').with( {
           :ensure   => 'present',
           :name     => 'ILMT-TAD4D-agent',
           :provider => 'yum'

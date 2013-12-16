@@ -15,8 +15,21 @@
 #   version of the package and start the agent.
 #
 # *package*
-#   This package must contain a Puppet fileserver URL pointing to the location
-#   of the binary RPM package.
+#   This package may contain a Puppet fileserver URL pointing to the location
+#   of the binary RPM package.  If no value is provided for this parameter,
+#   Puppet will attempt to install the binary RPM package via yum.
+#
+# *securitylevel*
+#   Set this parameter to 0 for no encryption, 1 for server certificate
+#   encryption (you must provide a value for the *servercert* parameter), or 2
+#   for agent certificate encryption (you must provide values for the
+#   *servercert* and *agentcert* parameters).
+#
+# *servercert*
+#   Provide the string content of the server public certificate.
+#
+# *agentcert*
+#   Provide the string content of the agent public certificate.
 #
 # === Examples
 #
@@ -34,11 +47,13 @@
 #
 class ilmt (
   $ensure = $ilmt::params::ensure,
+  $agentcert = $ilmt::params::agentcertfilepath,
   $agentcertfilepath = $ilmt::params::agentcertfilepath,
   $agenttemppath = $ilmt::params::agenttemppath,
   $citinstallpath = $ilmt::params::citinstallpath,
   $fipsenabled = $ilmt::params::fipsenabled,
   $installservercertificate = $ilmt::params::installservercertificate,
+  $itlmdir = $itlm::params::itlmdir,
   $messagehandleraddress = $ilmt::params::messagehandleraddress,
   $package = $ilmt::params::package,
   $port = $ilmt::params::port,
@@ -48,6 +63,7 @@ class ilmt (
   $secureall = $ilmt::params::secureall,
   $secureauth = $ilmt::params::secureauth,
   $securitylevel = $ilmt::params::securitylevel,
+  $servercert = $ilmt::params::servercert,
   $servercertfilepath = $ilmt::params::servercertfilepath,
   $servercustomsslcertificate = $ilmt::params::servercustomsslcertificate,
   $tmpdir = $ilmt::params::tmpdir,
@@ -94,12 +110,12 @@ class ilmt (
     validate_string($secureauth)
 
     validate_re(
-      installservercertificate,
+      $installservercertificate,
       '^(y|n)$',
       '$installservercertificate must be "y" or "n".'
     )
     validate_re(
-      servercustomsslcertificate,
+      $servercustomsslcertificate,
       '^(y|n)$',
       '$servercustomsslcertificate must be "y" or "n".'
     )
@@ -194,5 +210,16 @@ class ilmt (
     hasstatus  => false,
     start      => '/var/itlm/tlmagent -g',
     stop       => '/var/itlm/tlmagent -e'
+  }
+
+  if ( $securitylevel > 0 ) {
+    class { 'ilmt::security':
+      securitylevel      => $securitylevel,
+      servercert         => $servercert,
+      servercertfilepath => $servercertfilepath,
+      agentcert          => $agentcert,
+      agentcertfilepath  => $agentcertfilepath,
+      before             => Package['ilmt_package'],
+    }
   }
 }
