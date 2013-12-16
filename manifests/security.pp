@@ -15,19 +15,23 @@ class ilmt::security (
   }
 
   if ( $securitylevel > 0 ) {
-    # server certificate
-    file { 'ilmt_server_certificate':
-      ensure  => 'present',
-      path    => $servercertfilepath,
-      content => $servercert,
+    if ( $servercertfilepath ) {
+      # server certificate
+      file { 'ilmt_server_certificate':
+        ensure  => 'present',
+        path    => $servercertfilepath,
+        content => $servercert,
+      }
     }
 
     if ( $securitylevel > 1 ) {
-      # agent certificate
-      file { 'ilmt_agent_certificate':
-        ensure  => 'present',
-        path    => $agentcertfilepath,
-        content => $agentcert,
+      if ( $agentcertfilepath ) {
+        # agent certificate
+        file { 'ilmt_agent_certificate':
+          ensure  => 'present',
+          path    => $agentcertfilepath,
+          content => $agentcert,
+        }
       }
     }
   }
