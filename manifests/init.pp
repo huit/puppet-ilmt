@@ -72,7 +72,7 @@ class ilmt (
     validate_string($package)
   }
   else {
-    notify { '$package parameter not provided, package management disabled.': }
+    notify { '$package parameter not provided, installing via yum.': }
   }
   validate_string($port)
   validate_string($messagehandleraddress)
@@ -149,28 +149,34 @@ class ilmt (
   }
 
   if ( $package ) {
+    $ilmt_package_provider = 'rpm'
+    $ilmt_package_source = "${tmpdir}/${package_filename}"
     $ensure_package_file = $ensure ? {
       'absent' => 'absent',
       default  => 'present',
     }
-    $package_file_path = "${tmpdir}/${package_filename}"
     file { 'package_file':
       ensure => $ensure_package_file,
-      path   => $package_file_path,
+      path   => $ilmt_package_source,
       source => $package,
+      before => Package['ilmt_package'],
     }
+  }
+  else {
+    $ilmt_package_provider = 'yum'
+    $ilmt_package_source = undef
+  }
 
-    $ensure_ilmt_package = $ensure ? {
-      'disabled' => 'present',
-      default    => $ensure,
-    }
-    package { 'ilmt_package':
-      ensure   => $ensure_ilmt_package,
-      name     => $packagename,
-      require  => File['package_file','response_file'],
-      provider => 'rpm',
-      source   => $package_file_path,
-    }
+  $ensure_ilmt_package = $ensure ? {
+    'disabled' => 'present',
+    default    => $ensure,
+  }
+  package { 'ilmt_package':
+    ensure   => $ensure_ilmt_package,
+    name     => $packagename,
+    require  => File['response_file'],
+    provider => $ilmt_package_provider,
+    source   => $ilmt_package_source,
   }
 
   $ensure_ilmt_service = $ensure ? {
