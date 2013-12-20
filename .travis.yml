@@ -3,6 +3,9 @@ rvm: 1.8.7
 script: "rake lint spec"
 notifications:
   email: false
+  hipchat:
+    rooms:
+      secure: iWj32dXbTmD2xxeUSXYgEHyA0bPtxS4Qz4O8XKED0nP6X+RTCpuYaXdeVEcFNEPMIbUN2KLJV+oHs4UgpA6dkMbpEqvz1qrVHPy7ex1+QwIvW/mJ8gJO7KQsRXLnM7pnRj5LzHOdoFv/Ou6dxIqdbObpnrABSOvcoK/hsKs45fE=
 bundler_args: ''
 env:
   - PUPPET_VERSION=3.3.2
