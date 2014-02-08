@@ -202,14 +202,12 @@ class ilmt (
   }
   service { 'ilmt_service':
     ensure     => $ensure_ilmt_service,
+    name       => 'tlm',
     require    => Package['ilmt_package'],
     subscribe  => Package['ilmt_package'],
     enable     => false,
-    name       => 'tlmagent',
     hasrestart => false,
-    hasstatus  => false,
-    start      => '/var/itlm/tlmagent -g',
-    stop       => '/var/itlm/tlmagent -e'
+    restart    => '/sbin/service tlm reload'
   }
 
   if ( $securitylevel > 0 ) {
