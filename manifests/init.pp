@@ -49,6 +49,7 @@ class ilmt (
   $ensure = $ilmt::params::ensure,
   $agentcert = $ilmt::params::agentcertfilepath,
   $agentcertfilepath = $ilmt::params::agentcertfilepath,
+  $agentenable = $ilmt::params::agentenable,
   $agenttemppath = $ilmt::params::agenttemppath,
   $citinstallpath = $ilmt::params::citinstallpath,
   $fipsenabled = $ilmt::params::fipsenabled,
@@ -205,9 +206,8 @@ class ilmt (
     name       => 'tlm',
     require    => Package['ilmt_package'],
     subscribe  => Package['ilmt_package'],
-    enable     => false,
-    hasrestart => false,
-    restart    => '/sbin/service tlm reload'
+    enable     => $agentenable,
+    hasrestart => false
   }
 
   if ( $securitylevel > 0 ) {
