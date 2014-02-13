@@ -22,10 +22,8 @@ describe 'ilmt', :type => :class do
 
     it { should contain_service('ilmt_service').with( {
       :ensure     => 'running',
-      :enable     => false,
       :name       => 'tlm',
       :hasrestart => false,
-      :restart    => '/sbin/service tlm reload'
     } ) }
 
     describe 'with package param' do
