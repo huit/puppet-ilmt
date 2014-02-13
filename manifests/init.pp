@@ -49,7 +49,6 @@ class ilmt (
   $ensure = $ilmt::params::ensure,
   $agentcert = $ilmt::params::agentcertfilepath,
   $agentcertfilepath = $ilmt::params::agentcertfilepath,
-  $agentenable = $ilmt::params::agentenable,
   $agenttemppath = $ilmt::params::agenttemppath,
   $citinstallpath = $ilmt::params::citinstallpath,
   $fipsenabled = $ilmt::params::fipsenabled,
@@ -201,12 +200,16 @@ class ilmt (
     'disabled' => 'stopped',
     default    => 'running',
   }
+  $ensure_ilmt_service_enable = $ensure ? {
+    'present' => true,
+    default   => false
+  }
   service { 'ilmt_service':
     ensure     => $ensure_ilmt_service,
     name       => 'tlm',
     require    => Package['ilmt_package'],
     subscribe  => Package['ilmt_package'],
-    enable     => $agentenable,
+    enable     => $ensure_ilmt_service_enable,
     hasrestart => false
   }
 
