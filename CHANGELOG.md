@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0 2014-02-13
+- feature: apparently we do not love the `agentenable` parameter
+
 ## 0.2.0 2014-02-13
 - feature: `agentenable` parameter controls whether ILMT agent is enabled after installation
 
