@@ -53,7 +53,6 @@ class ilmt (
   $citinstallpath = $ilmt::params::citinstallpath,
   $fipsenabled = $ilmt::params::fipsenabled,
   $installservercertificate = $ilmt::params::installservercertificate,
-  $itlmdir = $itlm::params::itlmdir,
   $messagehandleraddress = $ilmt::params::messagehandleraddress,
   $package = $ilmt::params::package,
   $port = $ilmt::params::port,

@@ -12,6 +12,16 @@ describe 'ilmt', :type => :class do
   describe 'on RedHat platform' do
     let(:facts) { { :osfamily => 'RedHat' } }
 
+    describe 'fails to compile with itlmdir param' do
+      let(:params) { {
+        :package => 'PACKAGE_URI',
+        :itlmdir => '/opt/itlm',
+      } }
+      it {
+        expect { should raise_error(Puppet::Error) }
+      }
+    end
+
     it { should contain_file('response_file').with( {
       :ensure => 'present',
       :path   => '/etc/response_file.txt',
