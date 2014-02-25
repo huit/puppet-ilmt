@@ -1,5 +1,5 @@
 name    'huit/ilmt'
-version '0.3.0'
+version '0.3.1'
 source 'UNKNOWN'
 author 'huit'
 license 'MIT License'

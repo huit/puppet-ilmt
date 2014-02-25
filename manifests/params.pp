@@ -5,7 +5,7 @@ class ilmt::params {
   $ensure = 'present'
   $agentcert = false
   $agentcertfilepath = ''
-  $agenttemppath = '/tmp/itlm'
+  $agenttemppath = '/tmp/ilmt'
   $citinstallpath = ''
   $fipsenabled = 'n'
   $installservercertificate = 'n'
