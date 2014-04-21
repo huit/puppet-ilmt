@@ -86,9 +86,7 @@ class ilmt (
   if ( $package ) {
     validate_string($package)
   }
-  else {
-    notify { '$package parameter not provided, installing via yum.': }
-  }
+
   validate_string($port)
   validate_string($messagehandleraddress)
   validate_string($scangroup)
@@ -153,6 +151,8 @@ class ilmt (
     mode    => 0600,
   }
 
+  $ilmt_package_provider = 'yum'
+
   $ensure_response_file = $ensure ? {
     'absent' => 'absent',
     default  => 'present',
@@ -164,7 +164,6 @@ class ilmt (
   }
 
   if ( $package ) {
-    $ilmt_package_provider = 'rpm'
     $ilmt_package_source = "${tmpdir}/${package_filename}"
     $ensure_package_file = $ensure ? {
       'absent' => 'absent',
@@ -178,7 +177,6 @@ class ilmt (
     }
   }
   else {
-    $ilmt_package_provider = 'yum'
     $ilmt_package_source = undef
   }
 
