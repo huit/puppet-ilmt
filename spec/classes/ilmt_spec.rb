@@ -54,7 +54,7 @@ describe 'ilmt', :type => :class do
           :ensure   => 'present',
           :name     => 'ILMT-TAD4D-agent',
           :source   => '/tmp/ILMT-TAD4D-agent-7.5.0.115-linux-x86.rpm',
-          :provider => 'rpm'
+          :provider => 'yum'
         } ) }
     end
 
