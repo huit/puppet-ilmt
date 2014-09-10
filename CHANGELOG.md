@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2 2014-09-10
+- update: Make yum the default package provider
+- bugfix: Correct Modulefile name and add a metadata.json
+
 ## 0.3.1 2014-02-25
 - bugfix: `itlmdir` param is not used anywhere and also causes compilation to fail
 - bugfix: default value for `agenttemppath` param is incorrect
