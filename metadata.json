@@ -1,0 +1,17 @@
+{
+  "name": "huit-ilmt",
+  "version": "0.3.2",
+  "source": "https://github.com/huit/puppet-ilmt.git",
+  "author": "huit",
+  "license": "MIT License",
+  "summary": "Deploy the IBM License Metric Tool",
+  "description": "Deploys the IBM License Metric Tool.",
+  "project_page": "https://github.com/huit/puppet-ilmt",
+  "issues_url": "https://github.com/huit/puppet-ilmt/issues",
+  "operatingsystem_support": [
+    { "operatingsystem": "RedHat", "operatingsystemrelease" :[ "5", "6" ] }
+  ],
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 3.2.0" }
+  ]
+}
