@@ -24,4 +24,14 @@ class ilmt::params {
   $tmpdir = '/tmp'
   $useproxy = 'n'
   $version = '7.5.0.115'
+
+  if $::architecture == 's390x' {
+  
+    $machinetype = 'z9'
+    $processortype = 'IFL'         
+    $sharedpoolcapacity = 0
+    $systemactiveprocessors = 0    # Value required if running on zLinux
+
+  }
+
 } # Class:: ilmt::params

@@ -67,7 +67,14 @@ class ilmt (
   $servercustomsslcertificate = $ilmt::params::servercustomsslcertificate,
   $tmpdir = $ilmt::params::tmpdir,
   $useproxy = $ilmt::params::useproxy,
-  $version = $ilmt::params::version
+  $version = $ilmt::params::version,
+
+  # IBM S390/S390x support
+  $machinetype = $ilmt::params::machinetype,
+  $processortype = $ilmt::params::processortype,
+  $sharedpoolcapacity = $ilmt::params::sharedpoolcapacity,
+  $systemactiveprocessors = $ilmt::params::systemactiveprocessors,
+
 ) inherits ilmt::params {
 
   # parameter validation
@@ -76,6 +83,31 @@ class ilmt (
     '^((present|absent|disabled)|\d+(\.\d+)?)$',
     '$ensure must be "present", "absent", "disabled", or a version string.'
   )
+
+  # Validate S390 variables only if we're running on s390 architecture.
+  if ($::architecture == 's390') or ($::architecture == 's390x') {
+    validate_re(
+      $machinetype,
+      '^(z9|z10)$',
+      '$machinetype must be "z9" or "z10".'
+    )
+    validate_re(
+      $processortype,
+      '^(CP|IFL)$',
+      '$processortype must be "CP" or "IFL".'
+    )
+    validate_re(
+      $sharedpoolcapacity, 
+      '^\d+$', 
+      '$sharedpoolcapacity must be an integer.'
+    )
+    validate_re(
+      $systemactiveprocessors,
+      '^\d+$', 
+      '$systemactiveprocessors must be a positive integer.'
+    )
+  }
+
   validate_re(
     $securitylevel,
     '^(0|1|2)$',
