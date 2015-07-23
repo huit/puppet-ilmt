@@ -189,10 +189,19 @@ class ilmt (
     'absent' => 'absent',
     default  => 'present',
   }
+
   file { 'response_file':
     ensure  => $ensure_response_file,
     path    => '/etc/response_file.txt',
     content => template('ilmt/response_file.txt.erb'),
+    notify  => Service['ilmt_service'],
+  }
+
+  # If the response file changes then we need to reload the response
+  # file via the 'tlmagent -reload' command.
+  exec { "/var/itlm/tlmagent -reload":
+    subscribe   => File["response_file"],
+    refreshonly => true,
   }
 
   if ( $package ) {

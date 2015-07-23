@@ -29,7 +29,7 @@ class ilmt::params {
     $machinetype = 'z9'
     $processortype = 'IFL'
     $sharedpoolcapacity = 0
-    $systemactiveprocessors = 0    # Value required if running on zLinux
+    $systemactiveprocessors = 1    # Value required if running on zLinux
 
   }
 

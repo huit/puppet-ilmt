@@ -274,3 +274,43 @@ ServerCertFilePath=<%= @servercertfilepath %>
 # you should provide agent personal certificate.
 #
 AgentCertFilePath=<%= @agentcertfilepath %>
+
+<% if @architecture == 's390' or @architecture == 's390x' -%>
+################################################################################
+# Linux390 specific parameters
+################################################################################
+################################################################################
+#
+# Specify the total number of all active processors (CP and IFL) 
+# in a physical machine.   
+#
+SystemActiveProcessors=<%= @systemactiveprocessors %>
+
+################################################################################
+#
+# If the Linux on System z image is configured to share processors, specify 
+# the total number of shared processors (CP or IFL, as appropriate, not both)
+# in the CEC. Enter 0 (zero) if no shared processors are used by this image.
+#
+SharedPoolCapacity=<%= @sharedpoolcapacity %>
+
+################################################################################
+#
+# Specify the processor type that the Linux on System z image is running on.
+# Possible values are:
+# 
+#     CP   - Indicates that your Linux on System z image is running on CP processors
+#     IFL  - Indicates that your Linux on System z image is running on IFL processors
+#
+ProcessorType=<%= @processortype %>
+
+################################################################################
+#
+# Specify the machine type the Linux on System z image is running on.
+# Possible values are:
+# 
+#     z9   - Indicates that your Linux on System z image is running on System z9 or z990 or S/390
+#     z10  - Indicates that your Linux on System z image is running on System z10
+#
+MachineType=<%= @machinetype %>
+<% end -%>
