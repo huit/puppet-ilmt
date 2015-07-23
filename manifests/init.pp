@@ -197,13 +197,6 @@ class ilmt (
     notify  => Service['ilmt_service'],
   }
 
-  # If the response file changes then we need to reload the response
-  # file via the 'tlmagent -reload' command.
-  exec { "/var/itlm/tlmagent -reload":
-    subscribe   => File["response_file"],
-    refreshonly => true,
-  }
-
   if ( $package ) {
     $ilmt_package_source = "${tmpdir}/${package_filename}"
     $ensure_package_file = $ensure ? {
