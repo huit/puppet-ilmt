@@ -97,13 +97,13 @@ class ilmt (
       '$processortype must be "CP" or "IFL".'
     )
     validate_re(
-      $sharedpoolcapacity, 
-      '^\d+$', 
+      $sharedpoolcapacity,
+      '^\d+$',
       '$sharedpoolcapacity must be an integer.'
     )
     validate_re(
       $systemactiveprocessors,
-      '^\d+$', 
+      '^\d+$',
       '$systemactiveprocessors must be a positive integer.'
     )
   }
