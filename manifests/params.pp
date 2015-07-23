@@ -1,6 +1,5 @@
 # Class:: ilmt::params
 #
-#
 class ilmt::params {
   $ensure = 'present'
   $agentcert = false
