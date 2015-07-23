@@ -25,9 +25,9 @@ class ilmt::params {
   $version = '7.5.0.115'
 
   if $::architecture == 's390x' {
-  
+
     $machinetype = 'z9'
-    $processortype = 'IFL' 
+    $processortype = 'IFL'
     $sharedpoolcapacity = 0
     $systemactiveprocessors = 0    # Value required if running on zLinux
 
