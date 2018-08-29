@@ -1,6 +1,5 @@
 # Class:: ilmt::params
 #
-#
 class ilmt::params {
   $ensure = 'present'
   $agentcert = false
@@ -24,4 +23,12 @@ class ilmt::params {
   $tmpdir = '/tmp'
   $useproxy = 'n'
   $version = '7.5.0.115'
-} # Class:: ilmt::params
+
+  if $::architecture == 's390x' {
+    $machinetype = 'z9'
+    $processortype = 'IFL'
+    $sharedpoolcapacity = 0
+    $systemactiveprocessors = 1    # Value required if running on zLinux
+  }
+
+}
